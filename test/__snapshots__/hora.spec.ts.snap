@@ -2,31 +2,31 @@
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using angular 1`] = `
 Uint32Array [
-  284,
-  852,
-  788,
-  176,
-  500,
-  905,
-  526,
-  964,
-  935,
-  121,
+  153,
+  773,
+  561,
+  389,
+  882,
+  345,
+  51,
+  679,
+  266,
+  734,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using dot_product 1`] = `
 Uint32Array [
-  500,
-  852,
-  935,
-  874,
-  121,
-  737,
-  284,
-  696,
-  526,
-  605,
+  561,
+  153,
+  57,
+  168,
+  553,
+  574,
+  873,
+  768,
+  961,
+  373,
 ]
 `;
 
@@ -62,31 +62,31 @@ Uint32Array [
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using angular 1`] = `
 Uint32Array [
-  33,
-  210,
-  134,
-  929,
-  764,
-  680,
-  935,
-  636,
-  846,
-  51,
+  843,
+  71,
+  419,
+  416,
+  883,
+  582,
+  686,
+  818,
+  58,
+  168,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using dot_product 1`] = `
 Uint32Array [
-  210,
-  636,
-  920,
-  134,
-  821,
-  629,
-  33,
-  541,
-  352,
-  37,
+  686,
+  611,
+  843,
+  872,
+  419,
+  968,
+  567,
+  144,
+  883,
+  105,
 ]
 `;
 
