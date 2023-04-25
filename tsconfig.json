@@ -6,8 +6,7 @@
     "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "strict": true,
-    "allowImportingTsExtensions": true
+    "strict": true
   },
   "include": ["index.ts"],
   "exclude": []
