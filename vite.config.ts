@@ -13,5 +13,6 @@ export default defineConfig({
       interopDefault: true,
       registerNodeLoader: true,
     },
+    singleThread: true,
   },
 });

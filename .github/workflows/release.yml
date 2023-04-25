@@ -1,29 +1,27 @@
-name: Rust
+name: Release npm package
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-env:
-  CARGO_TERM_COLOR: always
-
+    branches:
+      - main
+permissions:
+  contents: write
+  id-token: write
 jobs:
-  build:
+  release:
+    name: Release
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
       - name: Load Dependency
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && rustup toolchain install nightly && rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu
-      - name: Run Build dev
-        run: wasm-pack build --target web
-      - name: Run Build release
-        run: wasm-pack build --target web --release
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
+      - run: npx semantic-release --branches main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -3,10 +3,10 @@
   <head></head>
   <body>
     <script type="module">
-      import horaPromise from "./index.web.js";
+      import { getHora } from "./index.js";
 
       const demo = async () => {
-        const hora = await horaPromise;
+        const hora = await getHora();
         await hora.init_env();
         const dimension = 50;
         var bf_idx = hora.BruteForceIndexUsize.new(dimension);
@@ -18,7 +18,7 @@
           }
           bf_idx.add(feature, i); // add point
         }
-        bf_idx.build("euclidean"); // build index
+        bf_idx.build("cosine_similarity"); // build index
         var feature = [];
         for (var j = 0; j < dimension; j++) {
           feature.push(Math.random());

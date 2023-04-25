@@ -1,29 +1,63 @@
-import { describe, beforeAll, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { getHora, HoraJsType } from "../index.ts";
+import seedrandom from "seedrandom";
 
-describe("hora-wasm", () => {
-  let hora: HoraJsType;
-  beforeAll(async () => {
-    // hora = await horaPromise;
-    hora = await getHora();
-  });
+const DIMENSION = 50;
+describe("hora-wasm", async () => {
+  let hora: HoraJsType = await getHora();
+  await hora.init_env();
 
-  it("can compress data", () => {
-    const dimension = 50;
-    const bf_idx = hora.BruteForceIndexUsize.new(dimension);
-    // var hnsw_idx = horajs.HNSWIndexUsize.new(dimension, 1000000, 32, 64, 20, 500, 16, false);
-    for (let i = 0; i < 1000; i++) {
-      const feature: number[] = [];
-      for (let j = 0; j < dimension; j++) {
-        feature.push(Math.random());
-      }
-      bf_idx.add(Float32Array.from(feature), i); // add point
+  const SEARCH_INDEXES = [
+    "euclidean",
+    "manhattan",
+    "dot_product",
+    // "cosine_similarity",
+    "angular",
+  ];
+
+  for (const searchIndex of SEARCH_INDEXES) {
+    // recreate index for every search type
+    const INDEXES = [
+      hora.BruteForceIndexUsize.new(DIMENSION),
+      hora.HNSWIndexUsize.new(DIMENSION, 1000000, 32, 64, 20, 500, false),
+      // TODO - these indexes don't work currently
+      // hora.IVFPQIndexUsize.new(DIMENSION, 1000000, 32, 64, 20, 500),
+      // hora.PQIndexUsize.new(DIMENSION, 1000000, 32, 64),
+      // hora.SSGIndexUsize.new(DIMENSION, 1000000, 32, 64, 20, 500),
+    ];
+
+    for (let i = 0; i < INDEXES.length; i++) {
+      const rng = seedrandom(`horajs-consistent-rng-${i}`);
+
+      const getFeatures = (count: number) => {
+        const features: number[][] = [];
+        for (let i = 0; i < count; i++) {
+          const feature: number[] = [];
+          for (let j = 0; j < DIMENSION; j++) {
+            feature.push(rng());
+          }
+          features.push(feature);
+        }
+        return features;
+      };
+
+      const idx = INDEXES[i];
+      it(`${idx.name()} - creates an index and searches over it using ${searchIndex}`, () => {
+        const features = getFeatures(1000);
+        for (let i = 0; i < features.length; i++) {
+          const feature = features[i];
+          idx.add(Float32Array.from(feature), i); // add point
+        }
+        idx.build(searchIndex); // build index
+        const featureToSearch = getFeatures(1)[0];
+        const search_result = idx.search(
+          Float32Array.from(featureToSearch),
+          10
+        );
+        expect(search_result).toBeInstanceOf(Uint32Array);
+        expect(search_result.length).toBe(10);
+        expect(search_result).toMatchSnapshot();
+      });
     }
-    bf_idx.build("euclidean"); // build index
-    let feature = [];
-    for (let j = 0; j < dimension; j++) {
-      feature.push(Math.random());
-    }
-    console.log("bf result", bf_idx.search(Float32Array.from(feature), 10)); //bf result Uint32Array(10) [704, 113, 358, 835, 408, 379, 117, 414, 808, 826]
-  });
+  }
 });

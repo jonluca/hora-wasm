@@ -11,5 +11,5 @@ shell.mkdir("dist");
 
 // Create the web output
 shell.rm("-rf", "pkg");
-shell.exec("wasm-pack build --target web");
+shell.exec("wasm-pack build --target web --release");
 shell.rm("pkg/{LICENSE,package.json,README.md,.gitignore}");

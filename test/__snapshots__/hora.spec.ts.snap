@@ -1,0 +1,121 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using angular 1`] = `
+Uint32Array [
+  284,
+  852,
+  788,
+  176,
+  500,
+  905,
+  526,
+  964,
+  935,
+  121,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using dot_product 1`] = `
+Uint32Array [
+  500,
+  852,
+  935,
+  874,
+  121,
+  737,
+  284,
+  696,
+  526,
+  605,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using euclidean 1`] = `
+Uint32Array [
+  773,
+  153,
+  389,
+  345,
+  882,
+  561,
+  679,
+  266,
+  734,
+  699,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using manhattan 1`] = `
+Uint32Array [
+  773,
+  153,
+  345,
+  628,
+  882,
+  98,
+  389,
+  246,
+  266,
+  561,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - creates an index and searches over it using angular 1`] = `
+Uint32Array [
+  33,
+  210,
+  134,
+  929,
+  764,
+  680,
+  935,
+  636,
+  846,
+  51,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - creates an index and searches over it using dot_product 1`] = `
+Uint32Array [
+  210,
+  636,
+  920,
+  134,
+  821,
+  629,
+  33,
+  541,
+  352,
+  37,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - creates an index and searches over it using euclidean 1`] = `
+Uint32Array [
+  843,
+  71,
+  582,
+  416,
+  419,
+  918,
+  58,
+  196,
+  28,
+  273,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - creates an index and searches over it using manhattan 1`] = `
+Uint32Array [
+  71,
+  843,
+  196,
+  656,
+  582,
+  936,
+  273,
+  416,
+  378,
+  419,
+]
+`;
