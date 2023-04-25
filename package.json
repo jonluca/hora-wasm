@@ -32,5 +32,8 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
+  },
+  "engines": {
+    "node": ">14.0.0"
   }
 }
