@@ -8,6 +8,17 @@
 
 Javascript bidding for the **`Hora Approximate Nearest Neighbor Search`**, in **WebAssembly** way.
 
+## Node Versions
+
+The rust `getrandom` library, when used in ESM, requires a polyfill into `globalThis.crypto`. This is done automatically if you use Node 18 or lower, but you should know that this package overrides the globalThis.crypto.
+
+```ts
+import { webcrypto } from "node:crypto";
+globalThis.crypto = webcrypto;
+```
+
+If using Node 19, 20 or greater this works out of the box.
+
 ## Features
 
 - **Performant** ⚡️

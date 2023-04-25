@@ -19,6 +19,12 @@ export const getHora = async (): Promise<HoraJsType> => {
     const __dirname = dirname(__filename);
     const path = join(__dirname, "./pkg/horajs_bg.wasm");
     input = fs.readFile(path);
+    const nodeProcessVersion = process?.versions?.node;
+    if (Number(nodeProcessVersion.split(".").unshift() < 19)) {
+      const { webcrypto } = await import("node:crypto");
+      // @ts-ignore
+      globalThis.crypto = webcrypto;
+    }
   }
   await init(input);
   await horaJs.init_env();
