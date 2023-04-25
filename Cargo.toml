@@ -34,7 +34,7 @@ default = ["console_error_panic_hook"]
 [dependencies]
 getrandom = {version = "0.2.9", features = ["js"]}
 console_error_panic_hook = { version = "0.1.7", optional = true }
-real_hora = {package = "hora-new", version = "0.0.1", features=["no_thread"]}
+real_hora = {package = "hora-new", version = "0.0.1", features=["packed_simd"]}
 wasm-bindgen = "0.2.84"
 
 [dev-dependencies]
