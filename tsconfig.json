@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "outDir": ".",
+    "module": "ESNext",
+    "declaration": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "allowImportingTsExtensions": true
+  },
+  "include": ["index.ts"],
+  "exclude": []
+}
