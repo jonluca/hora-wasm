@@ -2,120 +2,150 @@
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using angular 1`] = `
 Uint32Array [
-  153,
-  773,
-  561,
-  389,
-  882,
-  345,
-  51,
-  679,
-  266,
+  79,
   734,
+  497,
+  517,
+  900,
+  113,
+  950,
+  918,
+  865,
+  509,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using cosine_similarity 1`] = `
+Uint32Array [
+  315,
+  712,
+  422,
+  433,
+  391,
+  22,
+  824,
+  286,
+  857,
+  799,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using dot_product 1`] = `
 Uint32Array [
-  561,
-  153,
-  57,
-  168,
-  553,
-  574,
-  873,
-  768,
-  961,
-  373,
+  770,
+  681,
+  351,
+  614,
+  171,
+  971,
+  256,
+  127,
+  416,
+  31,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using euclidean 1`] = `
 Uint32Array [
-  773,
-  153,
-  389,
-  345,
-  882,
-  561,
-  679,
-  266,
-  734,
-  699,
+  461,
+  89,
+  236,
+  723,
+  157,
+  305,
+  142,
+  686,
+  777,
+  182,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using manhattan 1`] = `
 Uint32Array [
-  773,
+  630,
+  542,
+  781,
+  344,
+  189,
+  906,
   153,
-  345,
-  628,
-  882,
-  98,
-  389,
-  246,
-  266,
-  561,
+  915,
+  386,
+  91,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using angular 1`] = `
 Uint32Array [
-  843,
-  71,
-  419,
+  763,
+  880,
+  722,
+  238,
+  154,
+  881,
+  800,
+  59,
+  220,
+  609,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - creates an index and searches over it using cosine_similarity 1`] = `
+Uint32Array [
+  7,
+  979,
+  540,
+  306,
   416,
-  883,
-  582,
   686,
-  818,
-  58,
-  168,
+  736,
+  85,
+  455,
+  684,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using dot_product 1`] = `
 Uint32Array [
-  686,
-  611,
-  843,
-  872,
-  419,
-  968,
-  567,
-  144,
-  883,
-  105,
+  174,
+  273,
+  113,
+  867,
+  681,
+  468,
+  275,
+  509,
+  946,
+  187,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using euclidean 1`] = `
 Uint32Array [
-  843,
-  71,
-  582,
-  416,
-  419,
-  918,
-  58,
-  196,
-  28,
-  273,
+  916,
+  341,
+  77,
+  304,
+  228,
+  829,
+  677,
+  613,
+  637,
+  933,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - creates an index and searches over it using manhattan 1`] = `
 Uint32Array [
-  71,
-  843,
-  196,
-  656,
-  582,
-  936,
-  273,
-  416,
-  378,
-  419,
+  266,
+  122,
+  269,
+  598,
+  287,
+  731,
+  374,
+  557,
+  847,
+  247,
 ]
 `;

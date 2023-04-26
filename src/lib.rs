@@ -1,7 +1,8 @@
 extern crate console_error_panic_hook;
 extern crate wasm_bindgen;
-use real_hora::core::ann_index::ANNIndex;
-use real_hora::core::metrics;
+
+use hora_new::core::ann_index::{SerializableIndex, ANNIndex};
+use hora_new::core::metrics;
 use std::panic;
 use wasm_bindgen::prelude::*;
 
@@ -18,7 +19,7 @@ fn metrics_transform(s: &str) -> metrics::Metric {
 
 #[macro_export]
 macro_rules! inherit_ann_index_method {
-    (  $ann_idx:ident,$type_expr: ty, $idx_type_expr: ty) => {
+    (  $ann_idx:ident, $type_expr: ty, $idx_type_expr: ty) => {
         #[wasm_bindgen]
         pub struct $ann_idx {
             _idx: Box<$type_expr>,
@@ -42,27 +43,37 @@ macro_rules! inherit_ann_index_method {
             pub fn name(&self) -> String {
                 self._idx.name().to_string()
             }
+
+            pub fn dump_index(&mut self) -> Vec<u8> {
+                self._idx.dump_bin().unwrap()
+            }
+            pub fn load_index(serialized: &[u8]) -> Self {
+                $ann_idx {
+                    _idx: Box::new(<$type_expr>::load_bin(&serialized.to_vec()).unwrap())
+                }
+            }
+
         }
     };
 }
 
-inherit_ann_index_method!(BruteForceIndexUsize, real_hora::index::bruteforce_idx::BruteForceIndex<f32,usize>, usize);
+inherit_ann_index_method!(BruteForceIndexUsize, hora_new::index::bruteforce_idx::BruteForceIndex<f32,usize>, usize);
 #[wasm_bindgen]
 impl BruteForceIndexUsize {
     pub fn new(dimension: usize) -> Self {
         BruteForceIndexUsize {
-            _idx: Box::new(real_hora::index::bruteforce_idx::BruteForceIndex::<
+            _idx: Box::new(hora_new::index::bruteforce_idx::BruteForceIndex::<
                 f32,
                 usize,
             >::new(
                 dimension,
-                &real_hora::index::bruteforce_params::BruteForceParams::default(),
+                &hora_new::index::bruteforce_params::BruteForceParams::default(),
             )),
         }
     }
 }
 
-inherit_ann_index_method!(HNSWIndexUsize, real_hora::index::hnsw_idx::HNSWIndex<f32, usize>,usize);
+inherit_ann_index_method!(HNSWIndexUsize, hora_new::index::hnsw_idx::HNSWIndex<f32, usize>,usize);
 #[wasm_bindgen]
 impl HNSWIndexUsize {
     pub fn new(
@@ -75,9 +86,9 @@ impl HNSWIndexUsize {
         has_deletion: bool,
     ) -> Self {
         HNSWIndexUsize {
-            _idx: Box::new(real_hora::index::hnsw_idx::HNSWIndex::<f32, usize>::new(
+            _idx: Box::new(hora_new::index::hnsw_idx::HNSWIndex::<f32, usize>::new(
                 dimension,
-                &real_hora::index::hnsw_params::HNSWParams::<f32>::default()
+                &hora_new::index::hnsw_params::HNSWParams::<f32>::default()
                     .max_item(max_item)
                     .n_neighbor(n_neigh)
                     .n_neighbor0(n_neigh0)
@@ -89,14 +100,14 @@ impl HNSWIndexUsize {
     }
 }
 
-inherit_ann_index_method!(PQIndexUsize, real_hora::index::pq_idx::PQIndex<f32, usize>,usize);
+inherit_ann_index_method!(PQIndexUsize, hora_new::index::pq_idx::PQIndex<f32, usize>,usize);
 #[wasm_bindgen]
 impl PQIndexUsize {
     pub fn new(dimension: usize, n_sub: usize, sub_bits: usize, train_epoch: usize) -> Self {
         PQIndexUsize {
-            _idx: Box::new(real_hora::index::pq_idx::PQIndex::<f32, usize>::new(
+            _idx: Box::new(hora_new::index::pq_idx::PQIndex::<f32, usize>::new(
                 dimension,
-                &real_hora::index::pq_params::PQParams::default()
+                &hora_new::index::pq_params::PQParams::default()
                     .n_sub(n_sub)
                     .sub_bits(sub_bits)
                     .train_epoch(train_epoch),
@@ -105,7 +116,7 @@ impl PQIndexUsize {
     }
 }
 
-inherit_ann_index_method!(IVFPQIndexUsize, real_hora::index::pq_idx::IVFPQIndex<f32, usize>,usize);
+inherit_ann_index_method!(IVFPQIndexUsize, hora_new::index::pq_idx::IVFPQIndex<f32, usize>,usize);
 #[wasm_bindgen]
 impl IVFPQIndexUsize {
     pub fn new(
@@ -117,9 +128,9 @@ impl IVFPQIndexUsize {
         train_epoch: usize,
     ) -> Self {
         IVFPQIndexUsize {
-            _idx: Box::new(real_hora::index::pq_idx::IVFPQIndex::<f32, usize>::new(
+            _idx: Box::new(hora_new::index::pq_idx::IVFPQIndex::<f32, usize>::new(
                 dimension,
-                &real_hora::index::pq_params::IVFPQParams::default()
+                &hora_new::index::pq_params::IVFPQParams::default()
                     .n_sub(n_sub)
                     .sub_bits(sub_bits)
                     .n_kmeans_center(n_kmeans_center)
@@ -130,7 +141,7 @@ impl IVFPQIndexUsize {
     }
 }
 
-inherit_ann_index_method!(SSGIndexUsize, real_hora::index::ssg_idx::SSGIndex<f32, usize>,usize);
+inherit_ann_index_method!(SSGIndexUsize, hora_new::index::ssg_idx::SSGIndex<f32, usize>,usize);
 #[wasm_bindgen]
 impl SSGIndexUsize {
     pub fn new(
@@ -142,9 +153,9 @@ impl SSGIndexUsize {
         root_size: usize,
     ) -> Self {
         SSGIndexUsize {
-            _idx: Box::new(real_hora::index::ssg_idx::SSGIndex::<f32, usize>::new(
+            _idx: Box::new(hora_new::index::ssg_idx::SSGIndex::<f32, usize>::new(
                 dimension,
-                &real_hora::index::ssg_params::SSGParams::default()
+                &hora_new::index::ssg_params::SSGParams::default()
                     .neighbor_neighbor_size(neighbor_neighbor_size)
                     .init_k(init_k)
                     .index_size(index_size)

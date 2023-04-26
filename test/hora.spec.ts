@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { getHora, HoraJsType } from "../index.ts";
 import seedrandom from "seedrandom";
+import {
+  BruteForceIndexUsize,
+  HNSWIndexUsize,
+  IVFPQIndexUsize,
+  PQIndexUsize,
+  SSGIndexUsize,
+} from "../pkg/horajs.js";
 
 const DIMENSION = 50;
 describe("hora-wasm", async () => {
@@ -11,7 +18,7 @@ describe("hora-wasm", async () => {
     "euclidean",
     "manhattan",
     "dot_product",
-    // "cosine_similarity",
+    "cosine_similarity",
     "angular",
   ];
 
@@ -27,7 +34,10 @@ describe("hora-wasm", async () => {
     ];
 
     for (let i = 0; i < INDEXES.length; i++) {
-      const rng = seedrandom(`horajs-consistent-rng-${i}`);
+      const idx = INDEXES[i];
+
+      let name = idx.name();
+      const rng = seedrandom(`horajs-consistent-rng-${name}-${searchIndex}`);
 
       const getFeatures = (count: number) => {
         const features: number[][] = [];
@@ -41,8 +51,7 @@ describe("hora-wasm", async () => {
         return features;
       };
 
-      const idx = INDEXES[i];
-      it(`${idx.name()} - creates an index and searches over it using ${searchIndex}`, () => {
+      it(`${name} - creates an index and searches over it using ${searchIndex}`, () => {
         const features = getFeatures(1000);
         for (let i = 0; i < features.length; i++) {
           const feature = features[i];
@@ -57,6 +66,25 @@ describe("hora-wasm", async () => {
         expect(search_result).toBeInstanceOf(Uint32Array);
         expect(search_result.length).toBe(10);
         expect(search_result).toMatchSnapshot();
+      });
+      it(`${name} - serializes indexes properly`, () => {
+        const features = getFeatures(1000);
+        for (let i = 0; i < features.length; i++) {
+          const feature = features[i];
+          idx.add(Float32Array.from(feature), i); // add point
+        }
+        idx.build(searchIndex); // build index
+        const featureToSearch = getFeatures(1)[0];
+        let searchVector = Float32Array.from(featureToSearch);
+        const search_result = idx.search(searchVector, 10);
+        const serialized = idx.dump_index();
+        const className = idx.constructor.name;
+        const reconstructedIdx = (
+          hora[className as keyof typeof hora] as any
+        ).load_index(serialized);
+        const new_search_result = reconstructedIdx.search(searchVector, 10);
+
+        expect(search_result).toEqual(new_search_result);
       });
     }
   }
