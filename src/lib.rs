@@ -41,6 +41,10 @@ macro_rules! inherit_ann_index_method {
                 true
             }
 
+            pub fn size(&mut self) -> $idx_type_expr {
+               return self._idx.nodes_size();
+            }
+
             pub fn bulk_add(&mut self, flat_vs: &[f32], length: usize, idx: &[$idx_type_expr]) -> bool {
                // extract the vectors from the flat array, where each vector has the same length length
                 let num_vecs = flat_vs.len() / length;
