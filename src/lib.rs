@@ -36,6 +36,24 @@ macro_rules! inherit_ann_index_method {
                 true
             }
 
+            pub fn clear(&mut self) -> bool {
+                self._idx.clear();
+                true
+            }
+
+            pub fn bulk_add(&mut self, flat_vs: &[f32], length: usize, idx: &[$idx_type_expr]) -> bool {
+               // extract the vectors from the flat array, where each vector has the same length length
+                let num_vecs = flat_vs.len() / length;
+                let mut vs = Vec::with_capacity(num_vecs);
+                for i in 0..num_vecs {
+                    let start = i * length;
+                    let end = start + length;
+                    vs.push(&flat_vs[start..end]);
+                }
+                self._idx.madd(&vs, &idx).unwrap(); // Replace this with the actual implementation
+                true
+            }
+
             pub fn search(&self, vs: &[f32], k: usize) -> Vec<$idx_type_expr> {
                 self._idx.search(&vs, k)
             }

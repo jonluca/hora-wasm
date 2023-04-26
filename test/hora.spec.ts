@@ -67,6 +67,26 @@ describe("hora-wasm", async () => {
         expect(search_result.length).toBe(10);
         expect(search_result).toMatchSnapshot();
       });
+
+      it(`${name} - bulk inserts and indexes using ${searchIndex}`, () => {
+        idx.clear();
+        const features = getFeatures(1000);
+        const allVecs = Float32Array.from(features.flat());
+        idx.bulk_add(
+          allVecs,
+          DIMENSION,
+          Uint32Array.from(features.map((_, i) => i))
+        );
+        idx.build(searchIndex); // build index
+        const featureToSearch = getFeatures(1)[0];
+        const search_result = idx.search(
+          Float32Array.from(featureToSearch),
+          10
+        );
+        expect(search_result).toBeInstanceOf(Uint32Array);
+        expect(search_result.length).toBe(10);
+        expect(search_result).toMatchSnapshot();
+      });
       it(`${name} - serializes indexes properly`, () => {
         const features = getFeatures(1000);
         for (let i = 0; i < features.length; i++) {

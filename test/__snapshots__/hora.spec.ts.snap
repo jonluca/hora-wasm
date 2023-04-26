@@ -1,5 +1,80 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using angular 1`] = `
+Uint32Array [
+  345,
+  316,
+  72,
+  40,
+  403,
+  535,
+  548,
+  357,
+  385,
+  324,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using cosine_similarity 1`] = `
+Uint32Array [
+  839,
+  122,
+  651,
+  463,
+  381,
+  605,
+  280,
+  418,
+  287,
+  106,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using dot_product 1`] = `
+Uint32Array [
+  681,
+  213,
+  241,
+  770,
+  706,
+  571,
+  42,
+  127,
+  581,
+  126,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using euclidean 1`] = `
+Uint32Array [
+  661,
+  765,
+  444,
+  249,
+  616,
+  183,
+  636,
+  165,
+  83,
+  417,
+]
+`;
+
+exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using manhattan 1`] = `
+Uint32Array [
+  648,
+  153,
+  396,
+  409,
+  610,
+  766,
+  74,
+  521,
+  545,
+  598,
+]
+`;
+
 exports[`hora-wasm > BruteForceIndex - creates an index and searches over it using angular 1`] = `
 Uint32Array [
   79,
@@ -72,6 +147,81 @@ Uint32Array [
   915,
   386,
   91,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using angular 1`] = `
+Uint32Array [
+  348,
+  708,
+  183,
+  888,
+  482,
+  40,
+  968,
+  781,
+  808,
+  451,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using cosine_similarity 1`] = `
+Uint32Array [
+  891,
+  926,
+  333,
+  481,
+  570,
+  279,
+  88,
+  340,
+  695,
+  362,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using dot_product 1`] = `
+Uint32Array [
+  174,
+  275,
+  113,
+  273,
+  187,
+  440,
+  895,
+  339,
+  981,
+  684,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using euclidean 1`] = `
+Uint32Array [
+  507,
+  262,
+  18,
+  974,
+  800,
+  16,
+  21,
+  158,
+  444,
+  598,
+]
+`;
+
+exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using manhattan 1`] = `
+Uint32Array [
+  191,
+  495,
+  901,
+  216,
+  235,
+  196,
+  14,
+  422,
+  580,
+  448,
 ]
 `;
 

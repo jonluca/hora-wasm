@@ -2,16 +2,21 @@
 // call any module methods. To make that as easy as possible, this module directly exposes the
 // init() promise result, and returns the methods at the end of the promise.
 import init, * as horaJs from "./pkg/horajs.js";
+import { InitInput } from "./pkg/horajs.js";
 
-let input: undefined | Promise<Buffer> = undefined;
 let initialized = false;
 export type HoraJsType = typeof horaJs;
 
-export const getHora = async (): Promise<HoraJsType> => {
+export const getHora = async (
+  module_or_path?: InitInput | Promise<InitInput>
+): Promise<HoraJsType> => {
   if (initialized) {
     return horaJs;
   }
-  if (typeof window === "undefined") {
+  let input: undefined | InitInput | Promise<InitInput> =
+    module_or_path || undefined;
+
+  if (!input && typeof window === "undefined") {
     const fs = await import("fs/promises");
     const { fileURLToPath } = await import("url");
     const { join, dirname } = await import("path");
