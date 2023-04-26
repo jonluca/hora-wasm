@@ -22,6 +22,7 @@ export const getHora = async (
     new WebAssembly.Memory({
       initial: 8192, // 512 mb by default, these are 64k pages
       maximum: 65536, // 4 gb maximum memory ? I wonder if this causes issues on machines/browsers with less memory, also would be nice to enable memory64
+      shared: true,
     });
 
   if (typeof window === "undefined") {

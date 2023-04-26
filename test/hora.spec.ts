@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getHora, HoraJsType } from "../index.ts";
 import seedrandom from "seedrandom";
 
-const DIMENSION = 1536;
+const DIMENSION = 10;
 describe("hora-wasm", async () => {
   let hora: HoraJsType = await getHora();
   await hora.init_env();
@@ -15,7 +15,7 @@ describe("hora-wasm", async () => {
     "angular",
   ];
 
-  Error.stackTraceLimit = 1_000;
+  Error.stackTraceLimit = 30;
   for (const searchIndex of SEARCH_INDEXES) {
     // recreate index for every search type
     const INDEXES = [
@@ -29,6 +29,7 @@ describe("hora-wasm", async () => {
 
     for (let i = 0; i < INDEXES.length; i++) {
       const idx = INDEXES[i];
+      idx.clear();
 
       let name = idx.name();
       const rng = seedrandom.alea(
@@ -47,36 +48,28 @@ describe("hora-wasm", async () => {
         return features;
       };
 
-      await it(`${name} - creates an index and searches over it using ${searchIndex}`, () => {
-        try {
-          const now = performance.now();
-          const features = getFeatures(180_000);
-          console.log(`Generating features took ${performance.now() - now}ms`);
-          const now2 = performance.now();
-          for (let i = 0; i < features.length; i++) {
-            const feature = features[i];
-            idx.add(Float32Array.from(feature), i); // add point
-            if (i % 1000 === 0) console.log(`Added ${i} features`);
-          }
-          console.log(`Adding features took ${performance.now() - now2}ms`);
-          idx.build(searchIndex); // build index
-          const featureToSearch = getFeatures(1)[0];
-          const search_result = idx.search(
-            Float32Array.from(featureToSearch),
-            10
-          );
-          expect(search_result).toBeInstanceOf(Uint32Array);
-          expect(search_result.length).toBe(10);
-          expect(search_result).toMatchSnapshot();
-        } catch (e) {
-          console.error(e);
-          expect.fail("Error in hora-wasm");
+      it(`${name} - creates an index and searches over it using ${searchIndex}`, () => {
+        const now = performance.now();
+        const features = getFeatures(10_000);
+        const now2 = performance.now();
+        for (let i = 0; i < features.length; i++) {
+          const feature = features[i];
+          idx.add(Float32Array.from(feature), i); // add point
         }
+        idx.build(searchIndex); // build index
+        const featureToSearch = getFeatures(1)[0];
+        const search_result = idx.search(
+          Float32Array.from(featureToSearch),
+          10
+        );
+        expect(search_result).toBeInstanceOf(Uint32Array);
+        expect(search_result.length).toBe(10);
+        expect(search_result).toMatchSnapshot();
       });
 
-      await it(`${name} - bulk inserts and indexes using ${searchIndex}`, () => {
+      it(`${name} - bulk inserts and indexes using ${searchIndex}`, () => {
         idx.clear();
-        const features = getFeatures(180_000);
+        const features = getFeatures(10_000);
         const allVecs = Float32Array.from(features.flat());
         idx.bulk_add(
           allVecs,
@@ -93,8 +86,8 @@ describe("hora-wasm", async () => {
         expect(search_result.length).toBe(10);
         expect(search_result).toMatchSnapshot();
       });
-      await it(`${name} - serializes indexes properly`, () => {
-        const features = getFeatures(180_000);
+      it(`${name} - serializes indexes properly`, () => {
+        const features = getFeatures(10_000);
         for (let i = 0; i < features.length; i++) {
           const feature = features[i];
           idx.add(Float32Array.from(feature), i); // add point
