@@ -16,14 +16,16 @@ export const getHora = async (
   let input: undefined | InitInput | Promise<InitInput> =
     module_or_path || undefined;
 
-  if (!input && typeof window === "undefined") {
-    const fs = await import("fs/promises");
-    const { fileURLToPath } = await import("url");
-    const { join, dirname } = await import("path");
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = dirname(__filename);
-    const path = join(__dirname, "./pkg/horajs_bg.wasm");
-    input = fs.readFile(path);
+  if (typeof window === "undefined") {
+    if (!input) {
+      const fs = await import("fs/promises");
+      const { fileURLToPath } = await import("url");
+      const { join, dirname } = await import("path");
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = dirname(__filename);
+      const path = join(__dirname, "./pkg/horajs_bg.wasm");
+      input = fs.readFile(path);
+    }
     const nodeProcessVersion = process?.versions?.node;
     if (Number(nodeProcessVersion.split(".").unshift() < 19)) {
       const { webcrypto } = await import("node:crypto");
