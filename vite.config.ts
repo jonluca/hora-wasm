@@ -14,5 +14,7 @@ export default defineConfig({
       registerNodeLoader: true,
     },
     singleThread: true,
+    threads: false,
+    globals: true,
   },
 });

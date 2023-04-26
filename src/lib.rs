@@ -83,6 +83,7 @@ inherit_ann_index_method!(BruteForceIndexUsize, hora_new::index::bruteforce_idx:
 #[wasm_bindgen]
 impl BruteForceIndexUsize {
     pub fn new(dimension: usize) -> Self {
+        console_error_panic_hook::set_once();
         BruteForceIndexUsize {
             _idx: Box::new(hora_new::index::bruteforce_idx::BruteForceIndex::<
                 f32,
@@ -107,6 +108,8 @@ impl HNSWIndexUsize {
         ef_search: usize,
         has_deletion: bool,
     ) -> Self {
+        console_error_panic_hook::set_once();
+
         HNSWIndexUsize {
             _idx: Box::new(hora_new::index::hnsw_idx::HNSWIndex::<f32, usize>::new(
                 dimension,
@@ -126,6 +129,8 @@ inherit_ann_index_method!(PQIndexUsize, hora_new::index::pq_idx::PQIndex<f32, us
 #[wasm_bindgen]
 impl PQIndexUsize {
     pub fn new(dimension: usize, n_sub: usize, sub_bits: usize, train_epoch: usize) -> Self {
+        console_error_panic_hook::set_once();
+
         PQIndexUsize {
             _idx: Box::new(hora_new::index::pq_idx::PQIndex::<f32, usize>::new(
                 dimension,
@@ -149,6 +154,7 @@ impl IVFPQIndexUsize {
         search_n_center: usize,
         train_epoch: usize,
     ) -> Self {
+        console_error_panic_hook::set_once();
         IVFPQIndexUsize {
             _idx: Box::new(hora_new::index::pq_idx::IVFPQIndex::<f32, usize>::new(
                 dimension,
@@ -174,6 +180,8 @@ impl SSGIndexUsize {
         angle: f32,
         root_size: usize,
     ) -> Self {
+        console_error_panic_hook::set_once();
+
         SSGIndexUsize {
             _idx: Box::new(hora_new::index::ssg_idx::SSGIndex::<f32, usize>::new(
                 dimension,

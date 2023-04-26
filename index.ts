@@ -8,13 +8,22 @@ let initialized = false;
 export type HoraJsType = typeof horaJs;
 
 export const getHora = async (
-  module_or_path?: InitInput | Promise<InitInput>
+  module_or_path?: InitInput | Promise<InitInput>,
+  maybe_memory?: WebAssembly.Memory
 ): Promise<HoraJsType> => {
   if (initialized) {
     return horaJs;
   }
   let input: undefined | InitInput | Promise<InitInput> =
     module_or_path || undefined;
+
+  let memory: WebAssembly.Memory =
+    maybe_memory ||
+    new WebAssembly.Memory({
+      initial: 8192, // 512 mb by default, these are 64k pages
+      maximum: 65536, // 4 gb maximum memory ? I wonder if this causes issues on machines/browsers with less memory, also would be nice to enable memory64
+      shared: true,
+    });
 
   if (typeof window === "undefined") {
     if (!input) {
@@ -33,7 +42,7 @@ export const getHora = async (
       globalThis.crypto = webcrypto;
     }
   }
-  await init(input);
+  await init(input, memory);
   await horaJs.init_env();
   initialized = true;
   return horaJs;
