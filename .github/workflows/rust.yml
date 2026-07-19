@@ -14,16 +14,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Load Dependency
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && rustup toolchain install nightly && rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu
+      - uses: actions/checkout@v6
+      - name: Install Rust and wasm-pack
+        run: |
+          rustup toolchain install nightly-2023-04-26 --profile minimal --component rust-src --target wasm32-unknown-unknown
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - name: Run Build dev
         run: wasm-pack build --target web
       - name: Run Build release
         run: wasm-pack build --target web --release
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 22
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test

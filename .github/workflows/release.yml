@@ -14,9 +14,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Load Dependency
-        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && rustup toolchain install nightly && rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu
       - uses: actions/checkout@v6
+      - name: Install Rust and wasm-pack
+        run: |
+          rustup toolchain install nightly-2023-04-26 --profile minimal --component rust-src --target wasm32-unknown-unknown
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
       - uses: actions/setup-node@v6
         with:
           node-version: 22
