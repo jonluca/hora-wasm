@@ -6,6 +6,8 @@ on:
       - main
 permissions:
   contents: write
+  issues: write
+  pull-requests: write
   id-token: write
 jobs:
   release:
@@ -14,14 +16,16 @@ jobs:
     steps:
       - name: Load Dependency
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh && rustup toolchain install nightly && rustup component add rust-src --toolchain nightly-x86_64-unknown-linux-gnu
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: npm install --global npm@^11.15.0 yarn@1.22.22
       - run: yarn install --frozen-lockfile
       - run: yarn build
       - run: yarn test
-      - run: npx semantic-release --branches main
+      - run: npx --yes semantic-release@25 --branches main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

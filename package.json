@@ -8,6 +8,10 @@
   ],
   "types": "index.d.ts",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonluca/hora-wasm.git"
+  },
   "sideEffects": false,
   "files": [
     "pkg",
