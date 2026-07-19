@@ -2,61 +2,61 @@
 
 exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using angular 1`] = `
 Uint32Array [
-  1557,
   485,
-  2325,
   108,
   6752,
-  5914,
   629,
-  7498,
   6807,
   3901,
+  5064,
+  3777,
+  8664,
+  2522,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using cosine_similarity 1`] = `
 Uint32Array [
-  6181,
   3773,
   1604,
   7526,
   5533,
-  4073,
   6743,
   7005,
-  9119,
-  7753,
+  1230,
+  7051,
+  2836,
+  7483,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using dot_product 1`] = `
 Uint32Array [
   5711,
-  9906,
-  2240,
-  9203,
   3739,
   407,
   438,
   849,
-  9330,
   5168,
+  3734,
+  6395,
+  370,
+  1669,
 ]
 `;
 
 exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using euclidean 1`] = `
 Uint32Array [
-  6630,
   9398,
-  3772,
-  844,
-  2871,
   7665,
   4808,
-  2736,
-  2964,
-  3982,
+  2241,
+  7238,
+  4175,
+  5182,
+  601,
+  8098,
+  1294,
 ]
 `;
 
@@ -64,14 +64,14 @@ exports[`hora-wasm > BruteForceIndex - bulk inserts and indexes using manhattan 
 Uint32Array [
   8003,
   5652,
-  2481,
   9385,
   3794,
-  7833,
   4955,
   5795,
   8458,
   6406,
+  737,
+  2764,
 ]
 `;
 
@@ -153,60 +153,60 @@ Uint32Array [
 exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using angular 1`] = `
 Uint32Array [
   1457,
-  7695,
-  9455,
-  6456,
   6563,
   2112,
   9611,
   1050,
-  7617,
-  3853,
+  8258,
+  3237,
+  4834,
+  2299,
+  4693,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using cosine_similarity 1`] = `
 Uint32Array [
-  4884,
   4295,
   8965,
   9473,
-  6210,
   7921,
   8963,
-  3177,
-  7933,
-  9477,
+  3087,
+  2096,
+  3159,
+  2386,
+  6583,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using dot_product 1`] = `
 Uint32Array [
-  7114,
-  345,
-  6075,
   8341,
   3243,
-  116,
-  7603,
-  5763,
-  3837,
-  12,
+  2953,
+  7197,
+  7339,
+  3341,
+  4780,
+  1925,
+  5118,
+  6222,
 ]
 `;
 
 exports[`hora-wasm > HNSWIndex - bulk inserts and indexes using euclidean 1`] = `
 Uint32Array [
-  9816,
-  8672,
-  3002,
-  3637,
   8658,
-  6182,
-  1631,
   5233,
-  6512,
   4560,
+  3611,
+  4624,
+  2148,
+  3588,
+  3424,
+  7450,
+  7083,
 ]
 `;
 
@@ -215,13 +215,13 @@ Uint32Array [
   1810,
   4831,
   2087,
-  3667,
   8800,
   7215,
-  7862,
   5523,
-  9936,
-  8319,
+  5988,
+  7818,
+  6137,
+  6272,
 ]
 `;
 

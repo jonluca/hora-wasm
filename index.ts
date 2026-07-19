@@ -35,8 +35,8 @@ export const getHora = async (
       const path = join(__dirname, "./pkg/horajs_bg.wasm");
       input = fs.readFile(path);
     }
-    const nodeProcessVersion = process?.versions?.node;
-    if (Number(nodeProcessVersion.split(".").unshift() < 19)) {
+    const nodeMajorVersion = Number(process.versions.node.split(".")[0]);
+    if (nodeMajorVersion < 19) {
       const { webcrypto } = await import("node:crypto");
       // @ts-ignore
       globalThis.crypto = webcrypto;
@@ -48,4 +48,4 @@ export const getHora = async (
   return horaJs;
 };
 
-export default getHora;
+export default getHora();
